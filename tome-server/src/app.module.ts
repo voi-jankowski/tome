@@ -9,6 +9,12 @@ import { Category } from './entities/category.entity';
 import { Item } from './entities/item.entity';
 import { Attribute } from './entities/attribute.entity';
 import { ItemAttribute } from './entities/item-attribute.entity';
+import { UsersModule } from './users/users.module';
+import { ProjectsModule } from './projects/projects.module';
+import { CategoriesModule } from './categories/categories.module';
+import { ItemsModule } from './items/items.module';
+import { AttributesModule } from './attributes/attributes.module';
+import { ItemAttributesModule } from './item-attributes/item-attributes.module';
 
 @Module({
   imports: [
@@ -34,6 +40,12 @@ import { ItemAttribute } from './entities/item-attribute.entity';
       Attribute,
       ItemAttribute,
     ]),
+    UsersModule,
+    ProjectsModule,
+    CategoriesModule,
+    ItemsModule,
+    AttributesModule,
+    ItemAttributesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
