@@ -11,11 +11,16 @@ export class ItemsService {
   ) {}
 
   findAll(): Promise<Item[]> {
-    return this.itemsRepository.find();
+    return this.itemsRepository.find({
+      relations: ['category', 'itemAttributes', 'itemAttributes.attribute'],
+    });
   }
 
   findOne(id: number): Promise<Item> {
-    return this.itemsRepository.findOneBy({ id });
+    return this.itemsRepository.findOne({
+      where: { id },
+      relations: ['category', 'itemAttributes', 'itemAttributes.attribute'],
+    });
   }
 
   async create(item: Item): Promise<Item> {
@@ -29,5 +34,31 @@ export class ItemsService {
 
   async remove(id: number): Promise<void> {
     await this.itemsRepository.delete(id);
+  }
+
+  async search(query: any): Promise<Item[]> {
+    const qb = this.itemsRepository
+      .createQueryBuilder('item')
+      .leftJoinAndSelect('item.category', 'category')
+      .leftJoinAndSelect('item.itemAttributes', 'itemAttribute')
+      .leftJoinAndSelect('itemAttribute.attribute', 'attribute');
+
+    if (query.category) {
+      qb.andWhere('category.name = :category', { category: query.category });
+    }
+
+    if (query.attributes) {
+      query.attributes.forEach((attr, index) => {
+        qb.andWhere(
+          `attribute.name = :attrName${index} AND itemAttribute.stringValue = :attrValue${index}`,
+          {
+            [`attrName${index}`]: attr.name,
+            [`attrValue${index}`]: attr.value,
+          },
+        );
+      });
+    }
+
+    return qb.getMany();
   }
 }

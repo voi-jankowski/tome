@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Body,
+  Query,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { Item } from './../entities/item.entity';
@@ -37,5 +38,10 @@ export class ItemsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.itemsService.remove(+id);
+  }
+
+  @Get('search')
+  search(@Query() query: any) {
+    return this.itemsService.search(query);
   }
 }
