@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Body,
+  Request,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { Project } from './../entities/project.entity';
@@ -15,17 +16,18 @@ export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Get()
-  findAll() {
-    return this.projectsService.findAll();
+  findAll(@Request() req) {
+    return this.projectsService.findAllByUser(req.user.id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectsService.findOne(+id);
+  findOne(@Request() req, @Param('id') id: string) {
+    return this.projectsService.findOneByUser(req.user.id, +id);
   }
 
   @Post()
-  create(@Body() project: Project) {
+  create(@Request() req, @Body() project: Project) {
+    project.user = req.user;
     return this.projectsService.create(project);
   }
 

@@ -10,12 +10,16 @@ export class ProjectsService {
     private projectsRepository: Repository<Project>,
   ) {}
 
-  findAll(): Promise<Project[]> {
-    return this.projectsRepository.find();
+  findAllByUser(userId: number): Promise<Project[]> {
+    return this.projectsRepository.find({
+      where: { user: { id: userId } },
+    });
   }
 
-  findOne(id: number): Promise<Project> {
-    return this.projectsRepository.findOneBy({ id });
+  findOneByUser(userId: number, id: number): Promise<Project> {
+    return this.projectsRepository.findOne({
+      where: { id, user: { id: userId } },
+    });
   }
 
   async create(project: Project): Promise<Project> {
