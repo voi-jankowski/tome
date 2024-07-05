@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Category } from './category.entity';
 import { ItemAttribute } from './item-attribute.entity';
+import { User } from './user.entity';
 
 export enum AttributeType {
   STRING = 'string',
@@ -32,6 +33,9 @@ export class Attribute {
 
   @Column()
   isDefault: boolean;
+
+  @ManyToOne(() => User, (user) => user.attributes)
+  user: User;
 
   @ManyToOne(() => Category, (category) => category.attributes)
   category: Category;

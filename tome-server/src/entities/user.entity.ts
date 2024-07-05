@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Project } from './project.entity';
 import { Category } from './category.entity';
+import { Attribute } from './attribute.entity';
 
 @Entity('users')
 export class User {
@@ -28,6 +29,9 @@ export class User {
 
   @OneToMany(() => Category, (category) => category.user)
   categories: Category[];
+
+  @OneToMany(() => Attribute, (attribute) => attribute.user)
+  attributes: Attribute[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
