@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  ManyToMany,
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
@@ -22,8 +23,8 @@ export class Category {
   @Column()
   isDefault: boolean;
 
-  @ManyToOne(() => Project, (project) => project.categories)
-  project: Project;
+  @ManyToMany(() => Project, (project) => project.categories)
+  projects: Project[];
 
   @OneToMany(() => Attribute, (attribute) => attribute.category)
   attributes: Attribute[];
