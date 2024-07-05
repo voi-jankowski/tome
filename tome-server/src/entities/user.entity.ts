@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Project } from './project.entity';
+import { Category } from './category.entity';
 
 @Entity('users')
 export class User {
@@ -24,6 +25,9 @@ export class User {
 
   @OneToMany(() => Project, (project) => project.user)
   projects: Project[];
+
+  @OneToMany(() => Category, (category) => category.user)
+  categories: Category[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

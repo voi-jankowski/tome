@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './user.entity';
 import { Project } from './project.entity';
 import { Attribute } from './attribute.entity';
 import { Item } from './item.entity';
@@ -22,6 +23,9 @@ export class Category {
 
   @Column()
   isDefault: boolean;
+
+  @ManyToOne(() => User, (user) => user.categories)
+  user: User;
 
   @ManyToMany(() => Project, (project) => project.categories)
   projects: Project[];

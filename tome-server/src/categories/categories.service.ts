@@ -9,6 +9,4 @@ export class CategoriesService {
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
   ) {}
-
-  findAllByUser;
 }
