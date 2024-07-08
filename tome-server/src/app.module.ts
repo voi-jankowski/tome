@@ -15,6 +15,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { ItemsModule } from './items/items.module';
 import { AttributesModule } from './attributes/attributes.module';
 import { ItemAttributesModule } from './item-attributes/item-attributes.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ItemAttributesModule } from './item-attributes/item-attributes.module';
     ItemsModule,
     AttributesModule,
     ItemAttributesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
