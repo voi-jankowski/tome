@@ -24,6 +24,10 @@ export class UsersService {
     return this.usersRepository.findOneBy({ id });
   }
 
+  findOneByUsername(username: string): Promise<User> {
+    return this.usersRepository.findOneBy({ username });
+  }
+
   async create(user: User): Promise<User> {
     const newUser = await this.usersRepository.save(user);
     await this.createDefaultCategoriesAndAttributes(newUser);
