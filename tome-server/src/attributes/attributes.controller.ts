@@ -8,10 +8,13 @@ import {
   Body,
   Query,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { AttributesService } from './attributes.service';
 import { Attribute } from './../entities/attribute.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('attributes')
 export class AttributesController {
   constructor(private readonly attributesService: AttributesService) {}

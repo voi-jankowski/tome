@@ -7,11 +7,14 @@ import {
   Delete,
   Body,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemAttributesService } from './item-attributes.service';
 import { ItemAttribute } from './../entities/item-attribute.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('item-attributes')
+@UseGuards(JwtAuthGuard)
 export class ItemAttributesController {
   constructor(private readonly itemAttributesService: ItemAttributesService) {}
 
