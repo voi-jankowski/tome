@@ -36,24 +36,11 @@ export class UsersService {
     );
     return newUser;
   }
-  // async create(user: User): Promise<User> {
-  //   const newUser = await this.usersRepository.save(user);
-  //   await createDefaultCategoriesAndAttributes(
-  //     newUser,
-  //     this.categoriesRepository,
-  //     this.attributesRepository,
-  //   );
-  //   return newUser;
-  // }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     await this.usersRepository.update(id, updateUserDto);
     return this.usersRepository.findOneBy({ id });
   }
-  // async update(id: number, user: User): Promise<User> {
-  //   await this.usersRepository.update(id, user);
-  //   return this.usersRepository.findOneBy({ id });
-  // }
 
   async remove(id: number): Promise<void> {
     await this.usersRepository.delete(id);
